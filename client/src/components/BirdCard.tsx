@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { BirdType } from "../types/BirdType";
+import { capitalise } from "../utils/functions";
 
 export default function BirdCard() {
   const [allBirds, setAllBirds] = useState([]);
@@ -14,30 +15,22 @@ export default function BirdCard() {
   }, []);
 
   return (
-    <ul role="list" className="divide-y divide-gray-100">
+    <section className="flex flex-col items-center">
       {allBirds.map((bird: BirdType) => (
-        <li key={bird.bird_name} className="flex justify-between gap-x-6 py-5">
-          <p className="text-sm/6 font-semibold text-gray-900">
-            {bird.bird_name}
-          </p>
-          <p className="mt-1 truncate text-xs/5 text-gray-500">
-            {bird.bird_location}
-          </p>
-          <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-            <p className="text-sm/6 text-gray-900">{bird.timestamp}</p>
-          </div>
-        </li>
+        <div className="card-lg border-2  border-fuchsia-600 rounded-md bg-base-100 w-96 shadow-sm m-4">
+          <figure>
+            <img
+              className="rounded-md"
+              src={bird.bird_image}
+              alt={bird.bird_name}
+            />
+          </figure>
+          <article key={bird.id} className="card-body card-border">
+            <h2 className="card-title">{capitalise(bird.bird_name)}</h2>
+            <p>{bird.bird_location}</p>
+          </article>
+        </div>
       ))}
-    </ul>
+    </section>
   );
 }
-
-//===========================================
-//image for later
-// <div className="flex min-w-0 gap-x-4">
-//             <img
-//               alt=""
-//               src={person.imageUrl}
-//               className="size-12 flex-none rounded-full bg-gray-50"
-//             />
-//             <div className="min-w-0 flex-auto">

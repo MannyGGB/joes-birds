@@ -1,5 +1,5 @@
 {
-  "id": "06bf30f5-7fdd-475b-ada8-2ee3f927324a",
+  "id": "74025c86-a95d-4531-a3b6-86ba1b6b4154",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -26,12 +26,11 @@
           "primaryKey": false,
           "notNull": false
         },
-        "timestamp": {
-          "name": "timestamp",
-          "type": "timestamp",
+        "bird_image": {
+          "name": "bird_image",
+          "type": "text",
           "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
+          "notNull": false
         }
       },
       "indexes": {},
