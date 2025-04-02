@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { BirdType } from "../types/BirdType";
-import { capitalise } from "../utils/functions";
+// import { capitalise } from "../utils/functions";
 
 export default function BirdCard() {
   const [allBirds, setAllBirds] = useState([]);
@@ -26,7 +26,7 @@ export default function BirdCard() {
             />
           </figure>
           <article key={bird.id} className="card-body card-border">
-            <h2 className="card-title">{capitalise(bird.bird_name)}</h2>
+            <h2 className="card-title">{bird.bird_name}</h2>
             <p>{bird.bird_location}</p>
           </article>
         </div>

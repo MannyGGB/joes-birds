@@ -1,6 +1,6 @@
 import { insertBird } from "./queries";
 import { getAllBirds } from "./queries";
-import { birdsData } from "./lib/birdsData";
+// import { birdsData } from "./lib/birdsData";
 import cors from "cors";
 import express from "express";
 
@@ -24,8 +24,13 @@ app.get("/allBirds", async (_: express.Request, res: express.Response) => {
   res.send(birds);
 });
 
-app.post("/insertBirds", async (_: express.Request, res: express.Response) => {
-  const birds = await insertBird(birdsData);
+app.post(
+  "/insertBirds",
+  async (req: express.Request, res: express.Response) => {
+    const body = req.body.formValues;
 
-  res.send(birds);
-});
+    const birds = await insertBird(body);
+
+    res.send(birds);
+  }
+);
