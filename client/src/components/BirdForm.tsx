@@ -16,7 +16,7 @@ export default function BirdForm() {
       bird_image: formData.get("bird_image"),
     };
 
-    await fetch("http://localhost:8080/insertBirds", {
+    await fetch(`${import.meta.env.VITE_SERVER_POST_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -7,7 +7,7 @@ export default function BirdCard() {
 
   useEffect(() => {
     async function fetchBirds() {
-      const response = await fetch("http://localhost:8080/allBirds");
+      const response = await fetch(`${import.meta.env.VITE_SERVER_GET_URL}`);
       const data = await response.json();
       setAllBirds(data);
     }
