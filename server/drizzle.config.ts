@@ -7,7 +7,7 @@ export default defineConfig({
   schema: "./src/db/schema.ts",
   dialect: "postgresql",
   dbCredentials: {
-    //!exclamation mark is super important!
+    //!exclamation mark is super important! null assertion in TS
     url: process.env.DATABASE_URL!,
   },
 });

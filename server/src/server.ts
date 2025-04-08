@@ -20,17 +20,37 @@ app.get("/", (_: express.Request, res: express.Response) => {
 });
 
 app.get("/allBirds", async (_: express.Request, res: express.Response) => {
-  const birds = await getAllBirds();
-  res.send(birds);
+  try {
+    const birds = await getAllBirds();
+    res.send(birds);
+  } catch (error) {
+    if (error instanceof TypeError) {
+      console.error("Network error or invalid response:", error.message);
+    } else if (error.message.includes("HTTP error!")) {
+      console.error("API responded with an error:", error.message);
+    } else {
+      console.error("Unexpected error:", error);
+    }
+  }
 });
 
 app.post(
   "/insertBirds",
   async (req: express.Request, res: express.Response) => {
-    const body = req.body.formValues;
+    try {
+      const body = req.body.formValues;
 
-    const birds = await insertBird(body);
+      const birds = await insertBird(body);
 
-    res.send(birds);
+      res.send(birds);
+    } catch (error) {
+      if (error instanceof TypeError) {
+        console.error("Network error or invalid response:", error.message);
+      } else if (error.message.includes("HTTP error!")) {
+        console.error("API responded with an error:", error.message);
+      } else {
+        console.error("Unexpected error:", error);
+      }
+    }
   }
 );
