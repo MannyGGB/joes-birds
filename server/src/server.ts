@@ -1,4 +1,4 @@
-import { insertBird } from "./queries";
+import { deleteBird, insertBird, updateBird } from "./queries";
 import { getAllBirds } from "./queries";
 // import { birdsData } from "./lib/birdsData";
 import cors from "cors";
@@ -34,15 +34,55 @@ app.get("/allBirds", async (_: express.Request, res: express.Response) => {
   }
 });
 
-app.post(
-  "/insertBirds",
+app.post("/insertBird", async (req: express.Request, res: express.Response) => {
+  try {
+    const body = req.body.formValues;
+
+    const birds = await insertBird(body);
+
+    res.send(birds);
+  } catch (error) {
+    if (error instanceof TypeError) {
+      console.error("Network error or invalid response:", error.message);
+    } else if (error.message.includes("HTTP error!")) {
+      console.error("API responded with an error:", error.message);
+    } else {
+      console.error("Unexpected error:", error);
+    }
+  }
+});
+
+app.put(
+  "/updateBird/:id",
   async (req: express.Request, res: express.Response) => {
     try {
       const body = req.body.formValues;
+      const params = req.params.id;
 
-      const birds = await insertBird(body);
+      const updatedBird = await updateBird(body, params);
 
-      res.send(birds);
+      res.send(updatedBird);
+    } catch (error) {
+      if (error instanceof TypeError) {
+        console.error("Network error or invalid response:", error.message);
+      } else if (error.message.includes("HTTP error!")) {
+        console.error("API responded with an error:", error.message);
+      } else {
+        console.error("Unexpected error:", error);
+      }
+    }
+  }
+);
+
+app.delete(
+  "/deleteBird/:id",
+  async (req: express.Request, res: express.Response) => {
+    try {
+      const params = req.params.id;
+
+      const deletedBird = await deleteBird(params);
+
+      res.send(deletedBird);
     } catch (error) {
       if (error instanceof TypeError) {
         console.error("Network error or invalid response:", error.message);
